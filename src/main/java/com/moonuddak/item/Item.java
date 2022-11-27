@@ -1,11 +1,10 @@
 package com.moonuddak.item;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,6 +14,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "tbl_item")
 public class Item {
 
@@ -29,7 +29,8 @@ public class Item {
     private String itemName;
 
     @Column
-    @NotBlank(message = "상품 가격을 입력해 주세요.")
+    @DecimalMax(value = "100000.00", message = "10만원 이하로 입력해주세요.")
+    @DecimalMin(value = "0.0", message = "가격을 정확히 입력해주세요.")
     @NotNull
     private BigDecimal price;
 
