@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<h2>아이템 메인이요</h2>
+
+<form th:action="@{/item/add}" th:object="${itemTest}" method="post">
+    <div>
+        <label for="id">상품 ID</label>
+        <input type="text" id="id" th:field="*{id}" class="form-control"
+               th:errorclass="field-error" th:value="*{id}" readonly>
+    </div>
+    <div>
+        <label for="itemName">상품명</label>
+        <input type="text" id="itemName" th:field="*{itemName}" class="form-control"
+               th:errorclass="field-error" th:value="*{itemName}">
+        <div class="field-error" th:errors="*{itemName}"/>
+    </div>
+    <div>
+        <label for="price">가격</label>
+        <input type="text" id="price" th:field="*{price}" class="form-control"
+               th:errorclass="field-error" th:value="*{price}">
+        <div class="field-error" th:errors="*{price}"/>
+    </div>
+    <div>
+        <label for="description">설명</label>
+        <input type="text" id="description" th:field="*{description}" class="form-control"
+               th:errorclass="field-error" th:value="*{description}">
+        <div class="field-error" th:errors="*{description}"/>
+    </div>
+
+    <button type="submit">상품 등록</button>
+</form>
+</body>
+</html>

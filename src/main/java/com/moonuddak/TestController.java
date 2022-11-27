@@ -8,6 +8,6 @@ public class TestController {
 
     @GetMapping("")
     public String main(){
-        return "redirect:/item";
+        return "redirect:/item/add";
     }
 }

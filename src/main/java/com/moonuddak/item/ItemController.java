@@ -1,10 +1,14 @@
 package com.moonuddak.item;
 
+import com.moonuddak.item.sevice.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
@@ -14,6 +18,8 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 @RequestMapping("/item")
 public class ItemController {
+
+    private final ItemService itemService;
 
     @ModelAttribute("itemTest")
     public Item itemModelTest(){
@@ -25,8 +31,23 @@ public class ItemController {
                 .build();
     }
 
-    @GetMapping("")
-    public String itemMain(){
-        return "item/itemMain";
+    @GetMapping("/add")
+    public String item(){
+        return "item/addItem";
+    }
+
+    @PostMapping("/add")
+    public String addItem(@Validated @ModelAttribute("itemTest") Item item, BindingResult bindingResult){
+        log.debug("item log={}", item.toString());
+
+        //검증에 실패
+        if(bindingResult.hasErrors()){
+            log.debug("errors = {}", bindingResult);
+            return "item/addItem";
+        }
+
+        itemService.save(item);
+
+        return "item/addItem";
     }
 }
