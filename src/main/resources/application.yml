@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+
+  profiles:
+    active: dev
+
+  devtools:
+    livereload:
+      enabled: true
+  #    restart:
+  #      enabled: true
+
+  freemarker:
+    cache: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+  # DB
+  datasource:
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/moonuddak?serverTimezone=UTC&characterEncoding=UTF-8
+
+  logging:
+    level:
+      com.fish.encyclopedia: debug
+      com.fish.encyclopedia.OAuth2.controller: debug
+      com.project.study: error
+      com.project.study.controller: debug
+
+      org:
+        hibernate:
+          SQL: DEBUG
+          type: trace
